@@ -1,5 +1,5 @@
-# Unity-Template
-_A template repo for Unity projects._
+# Drone Scavenge
+_A video game for my final project._
 
 **Includes:** 
 
