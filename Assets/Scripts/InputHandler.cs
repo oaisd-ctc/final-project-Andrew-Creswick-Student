@@ -31,7 +31,8 @@ public class InputHandler : MonoBehaviour
     {
         float forwardInput = Input.GetAxis("Vertical");
         float rightInput = Input.GetAxis("Horizontal");
-        characterMovement.AddMoveInput(forwardInput, rightInput);
+        float jumpInput = Input.GetAxis("Jump");
+        characterMovement.AddMoveInput(forwardInput, rightInput,jumpInput);
     }
     void HandleInteractionInput()
     {

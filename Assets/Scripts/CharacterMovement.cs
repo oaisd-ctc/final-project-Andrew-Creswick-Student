@@ -20,7 +20,7 @@ public class CharacterMovement : MonoBehaviour
         moveDirection.y = -1f;
         controller.Move(moveDirection * moveSpeed * Time.deltaTime);
     }
-    public void AddMoveInput(float forwardInput, float rightInput)
+    public void AddMoveInput(float forwardInput, float rightInput,float jumpInput)
     {
         
         Vector3 forward = Camera.main.transform.forward;
