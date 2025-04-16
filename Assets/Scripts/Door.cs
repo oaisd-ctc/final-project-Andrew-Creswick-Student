@@ -1,40 +1,57 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.AI;
 
 public class Door : MonoBehaviour
 {
     public bool IsOpen = false;
-    [SerializeField] bool IsRotatingDoor = true;
-    [SerializeField] float Speed = 1f;
+    [SerializeField]
+    private bool IsRotatingDoor = true;
+    [SerializeField]
+    private float Speed = 1f;
     [Header("Rotation Configs")]
-    [SerializeField] float RotationAmount = 90f;
-    [SerializeField] float ForwardDirection = 0;
+    [SerializeField]
+    private float RotationAmount = 90f;
+    [SerializeField]
+    private float ForwardDirection = 0;
     [Header("Sliding Configs")]
-    [SerializeField] Vector3 SlideDirection = Vector3.back;
-    [SerializeField] float SlideAmount = 1.9f;
-    private Vector3 StartPosition;
+    [SerializeField]
+    private Vector3 SlideDirection = Vector3.back;
+    [SerializeField]
+    private float SlideAmount = 1.9f;
+
     private Vector3 StartRotation;
+    private Vector3 StartPosition;
     private Vector3 Forward;
+    private NavMeshObstacle Obstacle;
+
     private Coroutine AnimationCoroutine;
+
     private void Awake()
     {
         StartRotation = transform.rotation.eulerAngles;
+        // Since "Forward" actually is pointing into the door frame, choose a direction to think about as "forward" 
         Forward = transform.right;
+        StartPosition = transform.position;
+        Obstacle = GetComponent<NavMeshObstacle>();
+        Obstacle.carveOnlyStationary = false;
+        Obstacle.carving = IsOpen;
+        Obstacle.enabled = IsOpen;
     }
+
     public void Open(Vector3 UserPosition)
     {
         if (!IsOpen)
         {
-            if(AnimationCoroutine != null)
+            if (AnimationCoroutine != null)
             {
                 StopCoroutine(AnimationCoroutine);
             }
-            if(IsRotatingDoor)
+
+            if (IsRotatingDoor)
             {
                 float dot = Vector3.Dot(Forward, (UserPosition - transform.position).normalized);
-                Debug.Log($"Dot: {dot.ToString("N3")}");
+                //Debug.Log($"Dot: {dot.ToString("N3")}");
                 AnimationCoroutine = StartCoroutine(DoRotationOpen(dot));
             }
             else
@@ -43,19 +60,23 @@ public class Door : MonoBehaviour
             }
         }
     }
+
     private IEnumerator DoRotationOpen(float ForwardAmount)
     {
         Quaternion startRotation = transform.rotation;
         Quaternion endRotation;
-        if(ForwardAmount >= ForwardDirection) 
+
+        if (ForwardAmount >= ForwardDirection)
         {
             endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y + RotationAmount, 0));
-        } 
+        }
         else
         {
-            endRotation = Quaternion.Euler(new Vector3(0, startRotation.y - RotationAmount, 0));
+            endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y - RotationAmount, 0));
         }
+
         IsOpen = true;
+
         float time = 0;
         while (time < 1)
         {
@@ -63,13 +84,17 @@ public class Door : MonoBehaviour
             yield return null;
             time += Time.deltaTime * Speed;
         }
+        Obstacle.enabled = true;
+        Obstacle.carving = true;
     }
+
     private IEnumerator DoSlidingOpen()
     {
         Vector3 endPosition = StartPosition + SlideAmount * SlideDirection;
         Vector3 startPosition = transform.position;
+
         float time = 0;
-        IsOpen=true;
+        IsOpen = true;
         while (time < 1)
         {
             transform.position = Vector3.Lerp(startPosition, endPosition, time);
@@ -77,15 +102,17 @@ public class Door : MonoBehaviour
             time += Time.deltaTime * Speed;
         }
     }
+
     public void Close()
     {
         if (IsOpen)
         {
-            if(AnimationCoroutine != null)
+            if (AnimationCoroutine != null)
             {
                 StopCoroutine(AnimationCoroutine);
             }
-            if(IsRotatingDoor)
+
+            if (IsRotatingDoor)
             {
                 AnimationCoroutine = StartCoroutine(DoRotationClose());
             }
@@ -95,11 +122,16 @@ public class Door : MonoBehaviour
             }
         }
     }
+
     private IEnumerator DoRotationClose()
     {
+        Obstacle.carving = false;
+        Obstacle.enabled = false;
         Quaternion startRotation = transform.rotation;
         Quaternion endRotation = Quaternion.Euler(StartRotation);
+
         IsOpen = false;
+
         float time = 0;
         while (time < 1)
         {
@@ -108,15 +140,18 @@ public class Door : MonoBehaviour
             time += Time.deltaTime * Speed;
         }
     }
+
     private IEnumerator DoSlidingClose()
     {
         Vector3 endPosition = StartPosition;
         Vector3 startPosition = transform.position;
         float time = 0;
+
         IsOpen = false;
-        while(time < 1)
+
+        while (time < 1)
         {
-            transform.position=Vector3.Lerp(startPosition, endPosition, time);
+            transform.position = Vector3.Lerp(startPosition, endPosition, time);
             yield return null;
             time += Time.deltaTime * Speed;
         }
