@@ -41,8 +41,12 @@ public class PlayerInteraction : MonoBehaviour
             FancyText.gameObject.SetActive(false);
         }
         setInteractableNameText(interactionText);
-        FancyText.transform.position = raycastHit.point - (raycastHit.point - Camera.position).normalized * 0.01f;
-        FancyText.transform.rotation = Quaternion.LookRotation((raycastHit.point - Camera.position).normalized);
+        if (UseFancyText)
+        {
+            FancyText.transform.position = raycastHit.point - (raycastHit.point - Camera.position).normalized * 0.01f;
+            FancyText.transform.rotation = Quaternion.LookRotation((raycastHit.point - Camera.position).normalized);
+        }
+        
     }
     private void setInteractableNameText(string newText)
     {
@@ -54,7 +58,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             FancyText.text = newText;
         }
-        if (!FancyText.IsActive())
+        if (!FancyText.IsActive() && UseFancyText)
         {
             FancyText.gameObject.SetActive(true);
         }
