@@ -9,6 +9,11 @@ public class ItemSpawner : MonoBehaviour
     private void Start()
     {
         itemList = FindAnyObjectByType<ItemList>();
-        //itemPrefab = itemList.ReturnRandom();
+        itemPrefab = itemList.ReturnRandom();
+        if(itemPrefab != null)
+        {
+            Instantiate(itemPrefab, transform.position, Quaternion.identity);
+        }
+        
     }
 }
