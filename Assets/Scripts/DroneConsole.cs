@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DroneConsole : MonoBehaviour
 {
+    [SerializeField] GameObject player;
+    [SerializeField] Camera playerCamera;
     
     public void TakeControl()
     {

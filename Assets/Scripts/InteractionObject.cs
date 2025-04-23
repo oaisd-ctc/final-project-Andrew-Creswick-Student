@@ -6,12 +6,11 @@ public class InteractionObject : MonoBehaviour
     [SerializeField] private string interactionText = "I'm an interactable object";
     [SerializeField] private Door door;
     public UnityEvent onInteract = new UnityEvent();
-    
     bool IsDoor = false;
     private void Start()
     {
         door = GetComponent<Door>();
-        if (door)
+        if (door || IsDoor)
         {
             IsDoor = true;
         }

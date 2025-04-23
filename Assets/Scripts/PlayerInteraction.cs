@@ -68,6 +68,7 @@ public class PlayerInteraction : MonoBehaviour
         if (targetInteraction && targetInteraction.enabled)
         {
             targetInteraction.Interact();
+            Debug.Log($"Interacted with object: {interactableName.text}");
         }
     }
 }

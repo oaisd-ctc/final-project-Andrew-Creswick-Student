@@ -25,5 +25,6 @@ public class TeleportPlayer : MonoBehaviour
     public void Teleport()
     {
         player.transform.position = teleport;
+        Debug.Log("I teleported!");
     }
 }
