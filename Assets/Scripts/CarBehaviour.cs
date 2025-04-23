@@ -31,7 +31,7 @@ public class CarBehaviour : MonoBehaviour
         moveInput = Input.GetAxisRaw("Vertical"); // Get Vertical input.
 
         targetSpeed = moveInput * maxSpeed;
-        
+        Debug.Log(moveInput);
         // Acelerate / decelerate towards target speed.
         if (targetSpeed > speed) speed = Mathf.MoveTowards(speed, targetSpeed, acceleration * Time.deltaTime);
         else speed = Mathf.MoveTowards(speed, targetSpeed, deceleration * Time.deltaTime);
