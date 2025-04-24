@@ -9,7 +9,7 @@ public class DoorTrigger : MonoBehaviour
     [SerializeField] Door door;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent<InputHandlerNoMovement>(out InputHandlerNoMovement controller) || other.TryGetComponent<NavMeshAgent>(out NavMeshAgent agent))
+        if(other.TryGetComponent<PlayerInteraction>(out PlayerInteraction controller) || other.TryGetComponent<NavMeshAgent>(out NavMeshAgent agent))
         {
             if(!door.IsOpen)
             {
@@ -20,7 +20,7 @@ public class DoorTrigger : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<InputHandlerNoMovement>(out InputHandlerNoMovement controller) || other.TryGetComponent<NavMeshAgent>(out NavMeshAgent agent))
+        if (other.TryGetComponent<PlayerInteraction>(out PlayerInteraction controller) || other.TryGetComponent<NavMeshAgent>(out NavMeshAgent agent))
         {
             if (door.IsOpen)
             {

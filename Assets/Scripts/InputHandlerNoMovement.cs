@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class InputHandlerNoMovement : MonoBehaviour
 {
-    PlayerInteraction playerInteractionB;
+    public bool ControllingDrone = false;
+    [SerializeField] PlayerInteraction playerInteractionB;
+    [SerializeField] DroneConsole control;
     // Start is called before the first frame update
     void Start()
     {
-       playerInteractionB = GetComponent<PlayerInteraction>();  
+        if (playerInteractionB == null)
+        {
+            playerInteractionB = GetComponent<PlayerInteraction>();
+        }
     }
 
     // Update is called once per frame
@@ -21,6 +26,14 @@ public class InputHandlerNoMovement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E))
         {
             playerInteractionB.TryInteract();
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (ControllingDrone)
+            {
+                Debug.Log("Removed control of the drone");
+                control.TakeControl();
+            }
         }
     }
 }
