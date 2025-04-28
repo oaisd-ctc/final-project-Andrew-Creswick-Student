@@ -8,6 +8,11 @@ public class MouseDrag : MonoBehaviour
 
     private Vector3 screenPoint;
     private Vector3 offset;
+    private Rigidbody rb;
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     void OnMouseDown()
     {
@@ -23,7 +28,10 @@ public class MouseDrag : MonoBehaviour
 
         Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
         transform.position = curPosition;
-
+        if (rb)
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
 
 }
