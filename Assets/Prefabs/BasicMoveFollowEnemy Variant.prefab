@@ -123,11 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575d8548190538e4ca30bcb5834c5ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInteraction: {fileID: 0}
   Player: {fileID: 0}
   agent: {fileID: 419451359010693111}
   animator: {fileID: 7072914180802745227}
   distance: 0
-  minimumDistance: 20
+  minimumDistance: 35
   FollowingPlayer: 0
 --- !u!54 &8046090298382308058
 Rigidbody:

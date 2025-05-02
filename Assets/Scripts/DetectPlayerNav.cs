@@ -6,6 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class DetectPlayerNav : MonoBehaviour
 {
+    public PlayerInteraction playerInteraction;
     public Transform Player;
     public NavMeshAgent agent;
     public Animator animator;
@@ -21,8 +22,8 @@ public class DetectPlayerNav : MonoBehaviour
         {
             animator.SetBool("isFollowingPlayer", FollowingPlayer);
         }
-        
-
+        playerInteraction = FindAnyObjectByType<PlayerInteraction>();
+        Player = playerInteraction.gameObject.transform;
     }
 
     // Update is called once per frame

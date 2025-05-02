@@ -50,15 +50,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1803650529493671985, guid: e39d5eca0092bf84b8c4477e14781c9a, type: 3}
       propertyPath: velocity.x
-      value: 0.42026585
+      value: -0.07999926
       objectReference: {fileID: 0}
     - target: {fileID: 1803650529493671985, guid: e39d5eca0092bf84b8c4477e14781c9a, type: 3}
       propertyPath: velocity.z
-      value: 0.44858354
+      value: -0.33835104
       objectReference: {fileID: 0}
     - target: {fileID: 1803650529493671986, guid: e39d5eca0092bf84b8c4477e14781c9a, type: 3}
       propertyPath: m_Name
       value: Mimic Variant 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8161540771967316557, guid: e39d5eca0092bf84b8c4477e14781c9a, type: 3}
+      propertyPath: minimumDistance
+      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
