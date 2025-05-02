@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(MouseDrag))]
+[RequireComponent(typeof(Rigidbody))]
 public class Item : MonoBehaviour
 {
     [SerializeField] private Rigidbody rigidbody;

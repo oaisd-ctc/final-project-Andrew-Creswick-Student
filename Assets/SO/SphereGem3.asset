@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14c0809b8f79e7f4cbbab96d5563350c, type: 3}
-  m_Name: Toaster
+  m_Name: SphereGem3
   m_EditorClassIdentifier: 
-  value: 45
+  value: 35
