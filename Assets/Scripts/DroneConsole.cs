@@ -11,11 +11,12 @@ public class DroneConsole : MonoBehaviour
     [SerializeField] CarBehaviour car;
     [SerializeField] Camera carCamera;
     [SerializeField] InputHandlerNoMovement standardInput;
-    [SerializeField] bool ControllingDrone = false;
+    [SerializeField] public bool ControllingDrone = false;
+    [SerializeField] public bool CanControlDrone = true;
     
     public void TakeControl()
     {
-        if(!ControllingDrone)
+        if(!ControllingDrone && CanControlDrone)
         {
             player.SetActive(false);
             playerCamera.gameObject.SetActive(false);

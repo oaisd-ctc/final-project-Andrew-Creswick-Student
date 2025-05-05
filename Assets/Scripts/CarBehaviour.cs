@@ -12,15 +12,12 @@ public class CarBehaviour : MonoBehaviour
     [SerializeField] private float turnRate = 180f;
     [Tooltip("A boolean value determining whether or not the car can rotate when not moving.")]
     [SerializeField] private bool onlyTurnWhileMoving = true;
-
-
     private float speed, turnInput, moveInput;
 
     public float turnAmount
     {
         get { return turnInput * turnRate; }
     }
-
 
 
     // Update is called once per frame
@@ -45,5 +42,4 @@ public class CarBehaviour : MonoBehaviour
 
     }
 
-    
 }

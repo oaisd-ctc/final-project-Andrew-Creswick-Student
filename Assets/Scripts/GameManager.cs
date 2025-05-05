@@ -15,12 +15,24 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
         }
+        goldAmountText = GameObject.Find("GoldAmount").GetComponent<Text>();
     }
-    public static void LoadScene(string newSceneName)
+    public void LoadScene(string newSceneName)
     {
         SceneManager.LoadScene(newSceneName);
+    }
+    public void GrabMouse(bool grabMouse)
+    {
+        if (grabMouse)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else if (grabMouse == false)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
     public static void Quit()
     {

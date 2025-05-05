@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 2069270526532978704}
   m_Layer: 0
   m_Name: CarTrue
-  m_TagString: Untagged
+  m_TagString: PlayerCar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,6 +139,7 @@ MonoBehaviour:
   deceleration: 10
   turnRate: 180
   onlyTurnWhileMoving: 1
+  droneConsole: {fileID: 0}
 --- !u!65 &2069270526532978704
 BoxCollider:
   m_ObjectHideFlags: 0
