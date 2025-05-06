@@ -1,11 +1,16 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.ProBuilder.MeshOperations;
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public int goldAmount = 0;
+    public int highScore = 0;
     public Text goldAmountText;
+    public Text highScoreRecord;
+    [SerializeField] string sceneName = "";
     private void Awake()
     {
         if (instance)
@@ -18,6 +23,20 @@ public class GameManager : MonoBehaviour
             //DontDestroyOnLoad(this);
         }
         goldAmountText = GameObject.Find("GoldAmount").GetComponent<Text>();
+        highScoreRecord = GameObject.Find("HighScoreRecord").GetComponent<Text>();
+        
+        sceneName = SceneManager.GetActiveScene().name;
+    }
+    private void Start()
+    {
+        if (sceneName=="Level1")
+        {
+            highScore = PlayerPrefs.GetInt("HighScore1", 0);
+        } else
+        {
+            highScore = PlayerPrefs.GetInt("HighScore2", 0);
+        }
+        highScoreRecord.text = highScore.ToString();
     }
     public void LoadScene(string newSceneName)
     {
@@ -45,5 +64,25 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         goldAmountText.text = goldAmount.ToString();
+        if (highScoreRecord)
+        {
+            if(highScore < goldAmount)
+            {
+                highScore = goldAmount;
+                highScoreRecord.text = highScore.ToString();
+            }
+        }
+    }
+    private void OnDestroy()
+    {
+        if (sceneName == "Level1")
+        {
+            PlayerPrefs.SetInt("HighScore1", highScore);
+        }
+        else 
+        {
+            PlayerPrefs.SetInt("HighScore2", highScore);
+        }
+        PlayerPrefs.Save();
     }
 }

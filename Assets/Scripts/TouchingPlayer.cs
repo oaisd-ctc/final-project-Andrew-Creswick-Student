@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+
 public class TouchingPlayer : MonoBehaviour
 {
     public PlayerInteraction playerInteraction;
@@ -11,6 +13,7 @@ public class TouchingPlayer : MonoBehaviour
     public GameManager gameManager;
     public CarBehaviour carBehaviour;
     public Transform carTransform;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +22,14 @@ public class TouchingPlayer : MonoBehaviour
         carBehaviour = FindAnyObjectByType<CarBehaviour>();
         carTransform = carBehaviour.gameObject.transform;
         gameManager = FindAnyObjectByType<GameManager>();
+        
     }
     private void Update()
     {
         if (Vector3.Distance(transform.position, Player.position) < 1.5)
         { 
             OnPlayerTouch.Invoke();
-            gameManager.LoadScene("MainMenu");
+            gameManager.LoadScene("GameOver");
             gameManager.GrabMouse(false);
         }
         if (carTransform != null)
