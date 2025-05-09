@@ -13,6 +13,8 @@ public class DetectPlayerNav : MonoBehaviour
     public float distance;
     [SerializeField] float minimumDistance = 10.0f;
     [SerializeField] bool FollowingPlayer = false;
+    [SerializeField] bool PlayerNotInDrone = false;
+    [SerializeField] InputHandlerNoMovement playerInputHandler;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,16 +25,19 @@ public class DetectPlayerNav : MonoBehaviour
             animator.SetBool("isFollowingPlayer", FollowingPlayer);
         }
         playerInteraction = FindAnyObjectByType<PlayerInteraction>();
+        playerInputHandler = FindAnyObjectByType<InputHandlerNoMovement>();
         Player = playerInteraction.gameObject.transform;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        PlayerNotInDrone = playerInputHandler.ControllingDrone;
         distance = Vector3.Distance(this.transform.position, Player.position);
-        if(distance < minimumDistance)
+        if (distance < minimumDistance && PlayerNotInDrone == false)
         {
-            agent.destination=Player.position;
+            agent.destination = Player.position;
             FollowingPlayer = true;
             UseAnimator();
         }
@@ -40,6 +45,13 @@ public class DetectPlayerNav : MonoBehaviour
         {
             FollowingPlayer = false;
             UseAnimator();
+        }
+        if (PlayerNotInDrone == false)
+        {
+            agent.isStopped = false;
+        } else
+        {
+            agent.isStopped = true;
         }
     }
     private void UseAnimator()
